@@ -1,6 +1,6 @@
 AngularDynamicRouting
 =====================
-1 route, many views - dynamic routing
+Dynamic routing is 1 route, many views. It adapts to the pages that are available within your application. Did doesn't need config changes when new HTML partials are added.
 
 # Routing in AngularJS
 ##*1 route, 1 view*
@@ -32,11 +32,13 @@ Routing is great, although slight overhead with it is when you add new parital v
 **But wouldn't it be nice to add pages and never have to touch the route config again?!**
 
 ### Config
-First we have tospecify a generic route:
+First we have to specify a generic route:
+
     $routeProvider.when('/:name', { templateUrl: 'partials/blank.html', controller: PagesController });
--The `name` parameter is stored as a route parameter.
--The `templateUrl` points to a blank file.
--The `controller` is set to PagesController.
+    
+- The `name` parameter is stored as a route parameter.
+- The `templateUrl` points to a blank file.
+- The `controller` is set to PagesController.
 
 Now when the URL changes and we get `domain.com/#/new` the PageController will execute.
 
@@ -51,9 +53,9 @@ Now when the URL changes and we get `domain.com/#/new` the PageController will e
     PagesController.$inject = ['$scope', '$http', '$route', '$routeParams', '$compile'];
 
 Right, what's going on in here?
--Firstly the current template URL is set to a custom value based on the stored route parameter ("new" in our example).
--Then using the templateUrl value we `$http.get()` the contents of the HTML file.
--The HTML might include some `{{bindings}}` and Angular-esq code that needs "compiling" by Angular, so that's exactly what we do. `$compile(msg.data)($scope)` runs Angular over the new HTML.
+- Firstly the current template URL is set to a custom value based on the stored route parameter ("new" in our example).
+- Then using the templateUrl value we `$http.get()` the contents of the HTML file.
+- The HTML might include some `{{bindings}}` and Angular-esq code that needs "compiling" by Angular, so that's exactly what we do. `$compile(msg.data)($scope)` runs Angular over the new HTML.
 - The last part is to insert the new HTML into the `ng-views` element. We've added an ID of "views" to the element to make selecting it easier.
 
 ### Hey presto!
